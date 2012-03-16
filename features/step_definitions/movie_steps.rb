@@ -34,14 +34,9 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
   end
 end
 
-And /^I should see$/ do |table|
-  # table is a Cucumber::Ast::Table
-  table.hashes.each do |movie|
-    Movie.find_by_rating('PG') || Movie.find_by_rating('R')
-  end
+Then /^I should see all of the movies$/ do
+  page.has_css?('table#movies tr', :count => Movie.all.count-1)
 end
 
-Then /I should see all of the movies/
-  assert true, rows.should == Movie.all.count
-end
+
 

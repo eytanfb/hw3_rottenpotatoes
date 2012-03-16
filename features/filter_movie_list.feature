@@ -27,23 +27,19 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
   # enter step to "submit" the search form on the homepage
   # enter step(s) to ensure that PG and R movies are visible
   # enter step(s) to ensure that other movies are not visible
-  Given I am on the RottenPotatoes home page
   When I check the following ratings: ratings_R, ratings_PG
   And I uncheck the following ratings: ratings_G, ratings_PG-13, ratings_NC-17
   And I press "Refresh"
   Then I should be on the RottenPotatoes home page
-  And I should see
-  | title | rating | release_date |
-  | The Incredibles         | PG     | 5-Nov-2004   |
-  | Raiders of the Lost Ark | PG     | 12-Jun-1981  |
-  | The Terminator          | R      | 26-Oct-1984  |
-  | When Harry Met Sally    | R      | 21-Jul-1989  |
-  | Amelie                  | R      | 25-Apr-2001  |
+  And I should see "The Incredibles"
+  And I should see "Raiders of the Lost Ark"
+  And I should see "The Terminator"
+  And I should see "When Harry Met Sally"
+  And I should see "Amelie"
 
 Scenario: no ratings selected
   # see assignment
 
 Scenario: all ratings selected
-  Given I am on the RottenPotatoes home page
   When I check the following ratings: ratings_R, ratings_PG, ratings_G, ratings_PG-13, ratings_NC-17
   Then I should see all of the movies
