@@ -22,8 +22,17 @@ Background: movies have been added to database
   And I am on the RottenPotatoes home page
 
 Scenario: sort movies alphabetically
-  # your steps here
-
+  When I check the following ratings: G, PG, PG-13, R, NC-17
+  And I press "Refresh"
+  And I follow "title_header"
+  Then I should see "Aladdin" before "Amelie"
+  And I should see "2001: A Space Odyssey" before "Aladdin"
+  And I should see "Amelie" before "Chicken Run"
+  
+  
 Scenario: sort movies in increasing order of release date
-  # your steps here
+  When I check the following ratings: G, PG, PG-13, R, NC-17
+  And I press "Refresh"
+  And I follow "release_date_header"
+  Then I should see "When Harry Met Sally" before "Chicken Run"
 

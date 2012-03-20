@@ -14,7 +14,7 @@ end
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.content  is the entire content of the page as a string.
-  assert false, "Unimplmemented"
+  assert page.body.index(e1) < page.body.index(e2)
 end
 
 # Make it easier to express checking or unchecking several boxes at once
@@ -27,16 +27,17 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
   #   "When I uncheck..." steps in lines 89-95 of web_steps.rb
   rating_list.split(", ").each do |rating|
     if uncheck
-      uncheck(rating)
+      uncheck "ratings_#{rating}"
     else
-      check(rating)
+      check "ratings_#{rating}"
     end
   end
 end
 
 Then /^I should see all of the movies$/ do
-  page.has_css?('table#movies tr', :count => Movie.all.count-1)
+   assert page.has_css?("table#movies tr", :count => 11)
 end
+
 
 
 
